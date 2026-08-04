@@ -1,0 +1,183 @@
+C:\Users\bellamp\Downloads\drools-commission-poc2-facts>scripts\run-facts-smoke.bat
+============================================================
+ Drools Commission POC #2 - RULES AS FACTS
+============================================================
+Commission rows    : 50,000 facts
+Compiled DRL rules : 1
+Transactions       : 100,000
+Input columns      : 24
+Partitions/sessions: 8
+Worker threads     : 4
+Batch size         : 1,000
+Warmup tx          : 10,000
+Miss rate          : 0.00%
+Executable model   : true
+Beta range index   : true
+============================================================
+
+Initial heap after GC : 16.0 MB
+
+Building ONE generic KieBase (1 DRL rule)...
+Generic KieBase built in 2,028 ms; heap after GC: 21.6 MB
+
+Loading partition 1/8: 6,250 CommissionRule facts
+  loaded in 103 ms
+Loading partition 2/8: 6,250 CommissionRule facts
+  loaded in 7 ms
+Loading partition 3/8: 6,250 CommissionRule facts
+  loaded in 13 ms
+Loading partition 4/8: 6,250 CommissionRule facts
+  loaded in 11 ms
+Loading partition 5/8: 6,250 CommissionRule facts
+  loaded in 9 ms
+Loading partition 6/8: 6,250 CommissionRule facts
+  loaded in 6 ms
+Loading partition 7/8: 6,250 CommissionRule facts
+  loaded in 6 ms
+Loading partition 8/8: 6,250 CommissionRule facts
+  loaded in 5 ms
+
+All rule facts loaded. Total load: 160 ms; max partition: 103 ms
+Heap after rule load/GC: 39.9 MB (committed 1,024.0 MB); non-heap: 81.7 MB
+
+Warmup: 10,000 transactions
+Measured run: 100,000 transactions
+
+====================== RESULT ==============================
+Generic base build     : 2,028 ms
+200K-row fact load     : 160 ms
+Max partition load     : 103 ms
+Heap after base GC     : 21.6 MB
+Heap after rules GC    : 39.9 MB
+Processing elapsed     : 0.208 s
+Throughput             : 481,305.38 tx/s
+Batch p50              : 6.853 ms
+Batch p95              : 13.455 ms
+Batch p99              : 14.426 ms
+Matched                : 100,000
+Expected no-match      : 0
+Incorrect              : 0
+Heap after run GC      : 50.8 MB
+Non-heap after run     : 84.2 MB
+Projected 2M duration  : 00:00:04
+2-hour target margin   : 1732.7x
+============================================================
+Note: projection is indicative only. Run the full 2M target profile before concluding.
+CSV appended to: C:\Users\bellamp\Downloads\drools-commission-poc2-facts\benchmark-results-facts.csv
+
+C:\Users\bellamp\Downloads\drools-commission-poc2-facts>scripts\run-facts-medium.bat
+============================================================
+ Drools Commission POC #2 - RULES AS FACTS
+============================================================
+Commission rows    : 200,000 facts
+Compiled DRL rules : 1
+Transactions       : 500,000
+Input columns      : 24
+Partitions/sessions: 32
+Worker threads     : 8
+Batch size         : 2,000
+Warmup tx          : 20,000
+Miss rate          : 0.00%
+Executable model   : true
+Beta range index   : true
+============================================================
+
+Initial heap after GC : 10.8 MB
+
+Building ONE generic KieBase (1 DRL rule)...
+Generic KieBase built in 1,880 ms; heap after GC: 19.9 MB
+
+Loading partition 1/32: 6,250 CommissionRule facts
+  loaded in 76 ms
+Loading partition 2/32: 6,250 CommissionRule facts
+  loaded in 6 ms
+Loading partition 3/32: 6,250 CommissionRule facts
+  loaded in 6 ms
+Loading partition 4/32: 6,250 CommissionRule facts
+  loaded in 4 ms
+Loading partition 5/32: 6,250 CommissionRule facts
+  loaded in 5 ms
+Loading partition 6/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 7/32: 6,250 CommissionRule facts
+  loaded in 3 ms
+Loading partition 8/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 9/32: 6,250 CommissionRule facts
+  loaded in 3 ms
+Loading partition 10/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 11/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 12/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 13/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 14/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 15/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 16/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 17/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 18/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 19/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 20/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 21/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 22/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 23/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 24/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 25/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 26/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 27/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 28/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 29/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 30/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 31/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+Loading partition 32/32: 6,250 CommissionRule facts
+  loaded in 2 ms
+
+All rule facts loaded. Total load: 153 ms; max partition: 76 ms
+Heap after rule load/GC: 92.7 MB (committed 2,048.0 MB); non-heap: 67.8 MB
+
+Warmup: 20,000 transactions
+Measured run: 500,000 transactions
+
+====================== RESULT ==============================
+Generic base build     : 1,880 ms
+200K-row fact load     : 153 ms
+Max partition load     : 76 ms
+Heap after base GC     : 19.9 MB
+Heap after rules GC    : 92.7 MB
+Processing elapsed     : 0.743 s
+Throughput             : 673,189.70 tx/s
+Batch p50              : 12.710 ms
+Batch p95              : 54.246 ms
+Batch p99              : 82.937 ms
+Matched                : 500,000
+Expected no-match      : 0
+Incorrect              : 0
+Heap after run GC      : 155.1 MB
+Non-heap after run     : 67.8 MB
+Projected 2M duration  : 00:00:02
+2-hour target margin   : 2423.5x
+============================================================
+Note: projection is indicative only. Run the full 2M target profile before concluding.
+CSV appended to: C:\Users\bellamp\Downloads\drools-commission-poc2-facts\benchmark-results-facts.csv
+
+C:\Users\bellamp\Downloads\drools-commission-poc2-facts>
