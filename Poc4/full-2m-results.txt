@@ -1,0 +1,98 @@
+C:\Users\bellamp\Downloads\drools-commission-poc4-realistic>scripts\run-realistic-full-2m.bat
+============================================================
+ Drools Commission POC #4 - REALISTIC RULE STRESS
+============================================================
+Mode                  : ALL
+Commission rules      : 200,000 (5 rows/logical group)
+Logical rule groups   : 40,000
+Database tx rows      : 2,000,000
+Input columns         : 24
+Partitions/sessions   : 32
+Worker threads        : 8
+Read batch            : 5,000
+Write batch           : 5,000
+Seed batch            : 10,000
+No-match target       : 5.00%
+Hot partition/share   : 0 / 40.00%
+Reset database        : true
+Executable model      : true
+Beta range index      : true
+H2 URL                : jdbc:h2:file:C:/Users/bellamp/Downloads/drools-commission-poc4-realistic/data/commission-realistic-2m;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000
+Winner policy          : priority > specificity > lowest rule ID
+============================================================
+
+Seeded 200,000 realistic rules in 3,064 ms
+Seeded 2,000,000 transactions in 9,895 ms
+
+Initial heap after GC: 17.0 MB
+
+Building ONE generic KieBase (1 DRL rule)...
+Generic KieBase built in 1,596 ms; heap after GC: 22.8 MB
+
+Loaded partition 1/32: 6,250 rules in 185 ms
+Loaded partition 2/32: 6,250 rules in 79 ms
+Loaded partition 3/32: 6,250 rules in 79 ms
+Loaded partition 4/32: 6,250 rules in 48 ms
+Loaded partition 5/32: 6,250 rules in 43 ms
+Loaded partition 6/32: 6,250 rules in 49 ms
+Loaded partition 7/32: 6,250 rules in 57 ms
+Loaded partition 8/32: 6,250 rules in 35 ms
+Loaded partition 9/32: 6,250 rules in 39 ms
+Loaded partition 10/32: 6,250 rules in 35 ms
+Loaded partition 11/32: 6,250 rules in 30 ms
+Loaded partition 12/32: 6,250 rules in 27 ms
+Loaded partition 13/32: 6,250 rules in 31 ms
+Loaded partition 14/32: 6,250 rules in 34 ms
+Loaded partition 15/32: 6,250 rules in 32 ms
+Loaded partition 16/32: 6,250 rules in 37 ms
+Loaded partition 17/32: 6,250 rules in 39 ms
+Loaded partition 18/32: 6,250 rules in 36 ms
+Loaded partition 19/32: 6,250 rules in 28 ms
+Loaded partition 20/32: 6,250 rules in 27 ms
+Loaded partition 21/32: 6,250 rules in 39 ms
+Loaded partition 22/32: 6,250 rules in 27 ms
+Loaded partition 23/32: 6,250 rules in 26 ms
+Loaded partition 24/32: 6,250 rules in 26 ms
+Loaded partition 25/32: 6,250 rules in 26 ms
+Loaded partition 26/32: 6,250 rules in 30 ms
+Loaded partition 27/32: 6,250 rules in 33 ms
+Loaded partition 28/32: 6,250 rules in 47 ms
+Loaded partition 29/32: 6,250 rules in 29 ms
+Loaded partition 30/32: 6,250 rules in 28 ms
+Loaded partition 31/32: 6,250 rules in 27 ms
+Loaded partition 32/32: 6,250 rules in 27 ms
+
+Loaded 200,000 rule facts from H2 in 1,335 ms; max partition 185 ms
+Heap after rule load/GC: 103.7 MB; non-heap: 93.4 MB
+
+Partition 07 completed: 38,710 tx; avg candidates 4.75; max 5
+Partition 02 completed: 38,710 tx; avg candidates 4.74; max 5
+Partition 03 completed: 38,710 tx; avg candidates 4.75; max 5
+Partition 04 completed: 38,710 tx; avg candidates 4.74; max 5
+Partition 06 completed: 38,710 tx; avg candidates 4.75; max 5
+Partition 01 completed: 38,710 tx; avg candidates 4.74; max 5
+Partition 05 completed: 38,710 tx; avg candidates 4.74; max 5
+Partition 08 completed: 38,710 tx; avg candidates 4.76; max 5
+Partition 10 completed: 38,710 tx; avg candidates 4.75; max 5
+Partition 09 completed: 38,710 tx; avg candidates 4.76; max 5
+Partition 11 completed: 38,710 tx; avg candidates 4.75; max 5
+Partition 14 completed: 38,710 tx; avg candidates 4.75; max 5
+Partition 12 completed: 38,710 tx; avg candidates 4.75; max 5
+Partition 13 completed: 38,710 tx; avg candidates 4.74; max 5
+Partition 15 completed: 38,710 tx; avg candidates 4.75; max 5
+Partition 16 completed: 38,710 tx; avg candidates 4.75; max 5
+Partition 18 completed: 38,710 tx; avg candidates 4.75; max 5
+Partition 17 completed: 38,710 tx; avg candidates 4.75; max 5
+Partition 20 completed: 38,710 tx; avg candidates 4.75; max 5
+Partition 21 completed: 38,710 tx; avg candidates 4.75; max 5
+Partition 19 completed: 38,710 tx; avg candidates 4.75; max 5
+Partition 22 completed: 38,709 tx; avg candidates 4.75; max 5
+Partition 23 completed: 38,709 tx; avg candidates 4.75; max 5
+Partition 26 completed: 38,709 tx; avg candidates 4.75; max 5
+Partition 25 completed: 38,709 tx; avg candidates 4.75; max 5
+Partition 24 completed: 38,709 tx; avg candidates 4.74; max 5
+Partition 28 completed: 38,709 tx; avg candidates 4.74; max 5
+Partition 27 completed: 38,709 tx; avg candidates 4.75; max 5
+Partition 29 completed: 38,709 tx; avg candidates 4.76; max 5
+Partition 30 completed: 38,709 tx; avg candidates 4.74; max 5
+Partition 31 completed: 38,709 tx; avg candidates 4.75; max 5
