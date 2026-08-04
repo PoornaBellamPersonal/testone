@@ -1,0 +1,252 @@
+C:\Users\bellamp\Downloads\drools-commission-poc3-h2>scripts\run-h2-reuse.bat
+============================================================
+ Drools Commission POC #3 - FILE H2 END-TO-END
+============================================================
+Mode                : RUN
+Commission rules    : 200,000
+Database tx rows    : 200,000
+Input columns       : 24
+Partitions/sessions : 32
+Worker threads      : 8
+Read batch          : 2,000
+Write batch         : 2,000
+Seed batch          : 5,000
+Reset database      : false
+Executable model    : true
+Beta range index    : true
+H2 URL              : jdbc:h2:file:C:/Users/bellamp/Downloads/drools-commission-poc3-h2/data/commission-benchmark;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000
+============================================================
+
+Initial heap after GC: 12.3 MB
+
+Building ONE generic KieBase (1 DRL rule)...
+Generic KieBase built in 3,620 ms; heap after GC: 19.7 MB
+
+Loaded partition 1/32: 6,250 rules in 580 ms
+Loaded partition 2/32: 6,250 rules in 127 ms
+Loaded partition 3/32: 6,250 rules in 301 ms
+Loaded partition 4/32: 6,250 rules in 253 ms
+Loaded partition 5/32: 6,250 rules in 193 ms
+Loaded partition 6/32: 6,250 rules in 49 ms
+Loaded partition 7/32: 6,250 rules in 177 ms
+Loaded partition 8/32: 6,250 rules in 146 ms
+Loaded partition 9/32: 6,250 rules in 152 ms
+Loaded partition 10/32: 6,250 rules in 45 ms
+Loaded partition 11/32: 6,250 rules in 112 ms
+Loaded partition 12/32: 6,250 rules in 128 ms
+Loaded partition 13/32: 6,250 rules in 225 ms
+Loaded partition 14/32: 6,250 rules in 34 ms
+Loaded partition 15/32: 6,250 rules in 147 ms
+Loaded partition 16/32: 6,250 rules in 131 ms
+Loaded partition 17/32: 6,250 rules in 127 ms
+Loaded partition 18/32: 6,250 rules in 53 ms
+Loaded partition 19/32: 6,250 rules in 141 ms
+Loaded partition 20/32: 6,250 rules in 114 ms
+Loaded partition 21/32: 6,250 rules in 238 ms
+Loaded partition 22/32: 6,250 rules in 145 ms
+Loaded partition 23/32: 6,250 rules in 130 ms
+Loaded partition 24/32: 6,250 rules in 129 ms
+Loaded partition 25/32: 6,250 rules in 132 ms
+Loaded partition 26/32: 6,250 rules in 34 ms
+Loaded partition 27/32: 6,250 rules in 209 ms
+Loaded partition 28/32: 6,250 rules in 130 ms
+Loaded partition 29/32: 6,250 rules in 135 ms
+Loaded partition 30/32: 6,250 rules in 31 ms
+Loaded partition 31/32: 6,250 rules in 130 ms
+Loaded partition 32/32: 6,250 rules in 116 ms
+
+Loaded 200,000 rule facts from H2 in 4,794 ms; max partition 580 ms
+Heap after rule load/GC: 100.5 MB; non-heap: 73.1 MB
+
+Partition 07 completed: 6,250 transactions
+Partition 01 completed: 6,250 transactions
+Partition 03 completed: 6,250 transactions
+Partition 04 completed: 6,250 transactions
+Partition 05 completed: 6,250 transactions
+Partition 02 completed: 6,250 transactions
+Partition 00 completed: 6,250 transactions
+Partition 06 completed: 6,250 transactions
+Partition 09 completed: 6,250 transactions
+Partition 10 completed: 6,250 transactions
+Partition 08 completed: 6,250 transactions
+Partition 12 completed: 6,250 transactions
+Partition 11 completed: 6,250 transactions
+Partition 15 completed: 6,250 transactions
+Partition 13 completed: 6,250 transactions
+Partition 14 completed: 6,250 transactions
+Partition 17 completed: 6,250 transactions
+Partition 18 completed: 6,250 transactions
+Partition 16 completed: 6,250 transactions
+Partition 19 completed: 6,250 transactions
+Partition 20 completed: 6,250 transactions
+Partition 21 completed: 6,250 transactions
+Partition 22 completed: 6,250 transactions
+Partition 23 completed: 6,250 transactions
+Partition 24 completed: 6,250 transactions
+Partition 26 completed: 6,250 transactions
+Partition 25 completed: 6,250 transactions
+Partition 31 completed: 6,250 transactions
+Partition 27 completed: 6,250 transactions
+Partition 28 completed: 6,250 transactions
+Partition 29 completed: 6,250 transactions
+Partition 30 completed: 6,250 transactions
+
+====================== RESULT ==============================
+Rule DB seed          : 0 ms
+Transaction DB seed   : 0 ms
+Generic base build    : 3,620 ms
+Rule facts loaded     : 200,000 in 4,794 ms
+Max partition load    : 580 ms
+Heap after rules GC   : 100.5 MB
+DB batch wall time    : 3.033 s
+End-to-end throughput : 65,948.81 tx/s
+Cumulative DB read    : 7.760 s
+Cumulative Drools     : 3.522 s
+Cumulative DB write   : 11.705 s
+Batch p50             : 133.921 ms
+Batch p95             : 819.672 ms
+Batch p99             : 842.903 ms
+Transactions read     : 200,000
+Result rows written   : 200,000
+Matched               : 200,000
+No match              : 0
+Incorrect             : 0
+Heap after run GC     : 132.7 MB
+Database file size    : 89.77 MB
+Monthly runtime path  : 00:00:14.779
+Complete run incl seed: 00:00:15.837
+Projected 2M DB path  : 00:00:30.327
+2-hour target margin  : 237.4x
+============================================================
+Note: cumulative read/engine/write times are summed across parallel workers and can exceed wall time.
+Inspect with scripts\inspect-h2.bat or scripts\open-h2-console.bat.
+CSV appended to: C:\Users\bellamp\Downloads\drools-commission-poc3-h2\benchmark-results-h2.csv
+
+C:\Users\bellamp\Downloads\drools-commission-poc3-h2>scripts\run-h2-full-2m.bat
+============================================================
+ Drools Commission POC #3 - FILE H2 END-TO-END
+============================================================
+Mode                : ALL
+Commission rules    : 200,000
+Database tx rows    : 2,000,000
+Input columns       : 24
+Partitions/sessions : 32
+Worker threads      : 8
+Read batch          : 5,000
+Write batch         : 5,000
+Seed batch          : 10,000
+Reset database      : true
+Executable model    : true
+Beta range index    : true
+H2 URL              : jdbc:h2:file:C:/Users/bellamp/Downloads/drools-commission-poc3-h2/data/commission-2m;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000
+============================================================
+
+Seeded 200,000 rules in 4,834 ms
+Seeded 2,000,000 transactions in 28,057 ms
+
+Initial heap after GC: 17.0 MB
+
+Building ONE generic KieBase (1 DRL rule)...
+Generic KieBase built in 5,854 ms; heap after GC: 22.7 MB
+
+Loaded partition 1/32: 6,250 rules in 597 ms
+Loaded partition 2/32: 6,250 rules in 122 ms
+Loaded partition 3/32: 6,250 rules in 335 ms
+Loaded partition 4/32: 6,250 rules in 302 ms
+Loaded partition 5/32: 6,250 rules in 268 ms
+Loaded partition 6/32: 6,250 rules in 69 ms
+Loaded partition 7/32: 6,250 rules in 241 ms
+Loaded partition 8/32: 6,250 rules in 223 ms
+Loaded partition 9/32: 6,250 rules in 229 ms
+Loaded partition 10/32: 6,250 rules in 70 ms
+Loaded partition 11/32: 6,250 rules in 248 ms
+Loaded partition 12/32: 6,250 rules in 203 ms
+Loaded partition 13/32: 6,250 rules in 287 ms
+Loaded partition 14/32: 6,250 rules in 67 ms
+Loaded partition 15/32: 6,250 rules in 349 ms
+Loaded partition 16/32: 6,250 rules in 251 ms
+Loaded partition 17/32: 6,250 rules in 251 ms
+Loaded partition 18/32: 6,250 rules in 67 ms
+Loaded partition 19/32: 6,250 rules in 243 ms
+Loaded partition 20/32: 6,250 rules in 215 ms
+Loaded partition 21/32: 6,250 rules in 359 ms
+Loaded partition 22/32: 6,250 rules in 105 ms
+Loaded partition 23/32: 6,250 rules in 242 ms
+Loaded partition 24/32: 6,250 rules in 214 ms
+Loaded partition 25/32: 6,250 rules in 251 ms
+Loaded partition 26/32: 6,250 rules in 65 ms
+Loaded partition 27/32: 6,250 rules in 247 ms
+Loaded partition 28/32: 6,250 rules in 208 ms
+Loaded partition 29/32: 6,250 rules in 440 ms
+Loaded partition 30/32: 6,250 rules in 213 ms
+Loaded partition 31/32: 6,250 rules in 243 ms
+Loaded partition 32/32: 6,250 rules in 247 ms
+
+Loaded 200,000 rule facts from H2 in 7,471 ms; max partition 597 ms
+Heap after rule load/GC: 102.4 MB; non-heap: 93.3 MB
+
+Partition 04 completed: 62,500 transactions
+Partition 02 completed: 62,500 transactions
+Partition 01 completed: 62,500 transactions
+Partition 05 completed: 62,500 transactions
+Partition 07 completed: 62,500 transactions
+Partition 06 completed: 62,500 transactions
+Partition 03 completed: 62,500 transactions
+Partition 00 completed: 62,500 transactions
+Partition 08 completed: 62,500 transactions
+Partition 09 completed: 62,500 transactions
+Partition 10 completed: 62,500 transactions
+Partition 14 completed: 62,500 transactions
+Partition 13 completed: 62,500 transactions
+Partition 11 completed: 62,500 transactions
+Partition 12 completed: 62,500 transactions
+Partition 15 completed: 62,500 transactions
+Partition 16 completed: 62,500 transactions
+Partition 17 completed: 62,500 transactions
+Partition 18 completed: 62,500 transactions
+Partition 19 completed: 62,500 transactions
+Partition 20 completed: 62,500 transactions
+Partition 21 completed: 62,500 transactions
+Partition 22 completed: 62,500 transactions
+Partition 23 completed: 62,500 transactions
+Partition 24 completed: 62,500 transactions
+Partition 25 completed: 62,500 transactions
+Partition 26 completed: 62,500 transactions
+Partition 28 completed: 62,500 transactions
+Partition 27 completed: 62,500 transactions
+Partition 29 completed: 62,500 transactions
+Partition 31 completed: 62,500 transactions
+Partition 30 completed: 62,500 transactions
+
+====================== RESULT ==============================
+Rule DB seed          : 4,834 ms
+Transaction DB seed   : 28,057 ms
+Generic base build    : 5,854 ms
+Rule facts loaded     : 200,000 in 7,471 ms
+Max partition load    : 597 ms
+Heap after rules GC   : 102.4 MB
+DB batch wall time    : 106.579 s
+End-to-end throughput : 18,765.34 tx/s
+Cumulative DB read    : 760.454 s
+Cumulative Drools     : 25.897 s
+Cumulative DB write   : 41.654 s
+Batch p50             : 2,076.382 ms
+Batch p95             : 3,972.079 ms
+Batch p99             : 5,248.406 ms
+Transactions read     : 2,000,000
+Result rows written   : 2,000,000
+Matched               : 2,000,000
+No match              : 0
+Incorrect             : 0
+Heap after run GC     : 188.1 MB
+Database file size    : 756.51 MB
+Monthly runtime path  : 00:02:04.622
+Complete run incl seed: 00:02:41.185
+Projected 2M DB path  : 00:01:46.579
+2-hour target margin  : 67.6x
+============================================================
+Note: cumulative read/engine/write times are summed across parallel workers and can exceed wall time.
+Inspect with scripts\inspect-h2.bat or scripts\open-h2-console.bat.
+CSV appended to: C:\Users\bellamp\Downloads\drools-commission-poc3-h2\benchmark-results-h2.csv
+
+C:\Users\bellamp\Downloads\drools-commission-poc3-h2>
