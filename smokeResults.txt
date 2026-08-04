@@ -1,0 +1,57 @@
+C:\Users\bellamp\Downloads\drools-commission-poc>scripts\run-smoke.bat
+============================================================
+ Drools Commission Performance POC
+============================================================
+Rules             : 5,000
+Transactions      : 50,000
+Input columns     : 24
+Partitions        : 8
+Worker threads    : 4
+Batch size        : 5,000
+Sequential mode   : true
+Executable model  : true
+Warmup tx         : 10,000
+Miss rate         : 0.00%
+============================================================
+
+Building partition 1/8 (625 rules)
+  built in 15,416 ms
+Building partition 2/8 (625 rules)
+  built in 9,909 ms
+Building partition 3/8 (625 rules)
+  built in 7,703 ms
+Building partition 4/8 (625 rules)
+  built in 6,254 ms
+Building partition 5/8 (625 rules)
+  built in 6,113 ms
+Building partition 6/8 (625 rules)
+  built in 6,852 ms
+Building partition 7/8 (625 rules)
+  built in 6,565 ms
+Building partition 8/8 (625 rules)
+  built in 6,839 ms
+
+Rule bases ready. Summed partition build time: 65,651 ms; wall time: 65,700 ms
+
+Warmup: 10,000 transactions
+Measured run: 50,000 transactions
+
+====================== RESULT ==============================
+Rule build time       : 65,651 ms
+Max partition build   : 15,416 ms
+Processing elapsed    : 0.219 s
+Throughput            : 227,874.94 tx/s
+Batch p50             : 43.636 ms
+Batch p95             : 80.281 ms
+Batch p99             : 80.281 ms
+Matched               : 50,000
+Expected no-match     : 0
+Incorrect             : 0
+Used heap after run   : 2,319.6 MB
+Projected 2M duration : 00:00:08
+2-hour target margin  : 820.3x
+============================================================
+Note: projection is indicative only. Run the full 2M profile before drawing conclusions.
+CSV appended to: C:\Users\bellamp\Downloads\drools-commission-poc\benchmark-results.csv
+
+C:\Users\bellamp\Downloads\drools-commission-poc>
