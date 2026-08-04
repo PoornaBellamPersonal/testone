@@ -1,0 +1,269 @@
+C:\Users\bellamp\Downloads\drools-commission-poc3-h2>scripts\run-h2-smoke.bat
+============================================================
+ Drools Commission POC #3 - FILE H2 END-TO-END
+============================================================
+Mode                : ALL
+Commission rules    : 20,000
+Database tx rows    : 20,000
+Input columns       : 24
+Partitions/sessions : 8
+Worker threads      : 4
+Read batch          : 1,000
+Write batch         : 1,000
+Seed batch          : 2,000
+Reset database      : true
+Executable model    : true
+Beta range index    : true
+H2 URL              : jdbc:h2:file:C:/Users/bellamp/Downloads/drools-commission-poc3-h2/data/commission-smoke;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000
+============================================================
+
+Seeded 20,000 rules in 656 ms
+Seeded 20,000 transactions in 294 ms
+
+Initial heap after GC: 21.8 MB
+
+Building ONE generic KieBase (1 DRL rule)...
+Generic KieBase built in 3,338 ms; heap after GC: 26.2 MB
+
+Loaded partition 1/8: 2,500 rules in 339 ms
+Loaded partition 2/8: 2,500 rules in 38 ms
+Loaded partition 3/8: 2,500 rules in 97 ms
+Loaded partition 4/8: 2,500 rules in 29 ms
+Loaded partition 5/8: 2,500 rules in 29 ms
+Loaded partition 6/8: 2,500 rules in 26 ms
+Loaded partition 7/8: 2,500 rules in 30 ms
+Loaded partition 8/8: 2,500 rules in 26 ms
+
+Loaded 20,000 rule facts from H2 in 614 ms; max partition 339 ms
+Heap after rule load/GC: 34.0 MB; non-heap: 98.6 MB
+
+Partition 00 completed: 2,500 transactions
+Partition 03 completed: 2,500 transactions
+Partition 01 completed: 2,500 transactions
+Partition 02 completed: 2,500 transactions
+Partition 04 completed: 2,500 transactions
+Partition 05 completed: 2,500 transactions
+Partition 07 completed: 2,500 transactions
+Partition 06 completed: 2,500 transactions
+
+====================== RESULT ==============================
+Rule DB seed          : 656 ms
+Transaction DB seed   : 294 ms
+Generic base build    : 3,338 ms
+Rule facts loaded     : 20,000 in 614 ms
+Max partition load    : 339 ms
+Heap after rules GC   : 34.0 MB
+DB batch wall time    : 0.776 s
+End-to-end throughput : 25,764.90 tx/s
+Cumulative DB read    : 0.843 s
+Cumulative Drools     : 1.084 s
+Cumulative DB write   : 0.894 s
+Batch p50             : 69.263 ms
+Batch p95             : 354.026 ms
+Batch p99             : 354.481 ms
+Transactions read     : 20,000
+Result rows written   : 20,000
+Matched               : 20,000
+No match              : 0
+Incorrect             : 0
+Heap after run GC     : 40.4 MB
+Database file size    : 8.46 MB
+Monthly runtime path  : 00:00:06.615
+Complete run incl seed: 00:00:08.663
+Projected 2M DB path  : 00:01:17.625
+2-hour target margin  : 92.8x
+============================================================
+Note: cumulative read/engine/write times are summed across parallel workers and can exceed wall time.
+Inspect with scripts\inspect-h2.bat or scripts\open-h2-console.bat.
+CSV appended to: C:\Users\bellamp\Downloads\drools-commission-poc3-h2\benchmark-results-h2.csv
+
+C:\Users\bellamp\Downloads\drools-commission-poc3-h2>scripts\run-h2-target.bat
+============================================================
+ Drools Commission POC #3 - FILE H2 END-TO-END
+============================================================
+Mode                : ALL
+Commission rules    : 200,000
+Database tx rows    : 200,000
+Input columns       : 24
+Partitions/sessions : 32
+Worker threads      : 8
+Read batch          : 2,000
+Write batch         : 2,000
+Seed batch          : 5,000
+Reset database      : true
+Executable model    : true
+Beta range index    : true
+H2 URL              : jdbc:h2:file:C:/Users/bellamp/Downloads/drools-commission-poc3-h2/data/commission-benchmark;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000
+============================================================
+
+Seeded 200,000 rules in 3,499 ms
+Seeded 200,000 transactions in 2,796 ms
+
+Initial heap after GC: 15.4 MB
+
+Building ONE generic KieBase (1 DRL rule)...
+Generic KieBase built in 3,448 ms; heap after GC: 22.9 MB
+
+Loaded partition 1/32: 6,250 rules in 501 ms
+Loaded partition 2/32: 6,250 rules in 85 ms
+Loaded partition 3/32: 6,250 rules in 200 ms
+Loaded partition 4/32: 6,250 rules in 218 ms
+Loaded partition 5/32: 6,250 rules in 152 ms
+Loaded partition 6/32: 6,250 rules in 28 ms
+Loaded partition 7/32: 6,250 rules in 135 ms
+Loaded partition 8/32: 6,250 rules in 148 ms
+Loaded partition 9/32: 6,250 rules in 153 ms
+Loaded partition 10/32: 6,250 rules in 40 ms
+Loaded partition 11/32: 6,250 rules in 138 ms
+Loaded partition 12/32: 6,250 rules in 121 ms
+Loaded partition 13/32: 6,250 rules in 145 ms
+Loaded partition 14/32: 6,250 rules in 42 ms
+Loaded partition 15/32: 6,250 rules in 215 ms
+Loaded partition 16/32: 6,250 rules in 141 ms
+Loaded partition 17/32: 6,250 rules in 132 ms
+Loaded partition 18/32: 6,250 rules in 43 ms
+Loaded partition 19/32: 6,250 rules in 131 ms
+Loaded partition 20/32: 6,250 rules in 145 ms
+Loaded partition 21/32: 6,250 rules in 151 ms
+Loaded partition 22/32: 6,250 rules in 41 ms
+Loaded partition 23/32: 6,250 rules in 136 ms
+Loaded partition 24/32: 6,250 rules in 122 ms
+Loaded partition 25/32: 6,250 rules in 161 ms
+Loaded partition 26/32: 6,250 rules in 50 ms
+Loaded partition 27/32: 6,250 rules in 149 ms
+Loaded partition 28/32: 6,250 rules in 202 ms
+Loaded partition 29/32: 6,250 rules in 134 ms
+Loaded partition 30/32: 6,250 rules in 35 ms
+Loaded partition 31/32: 6,250 rules in 131 ms
+Loaded partition 32/32: 6,250 rules in 133 ms
+
+Loaded 200,000 rule facts from H2 in 4,358 ms; max partition 501 ms
+Heap after rule load/GC: 103.3 MB; non-heap: 93.7 MB
+
+Partition 06 completed: 6,250 transactions
+Partition 07 completed: 6,250 transactions
+Partition 03 completed: 6,250 transactions
+Partition 02 completed: 6,250 transactions
+Partition 01 completed: 6,250 transactions
+Partition 05 completed: 6,250 transactions
+Partition 04 completed: 6,250 transactions
+Partition 00 completed: 6,250 transactions
+Partition 08 completed: 6,250 transactions
+Partition 14 completed: 6,250 transactions
+Partition 11 completed: 6,250 transactions
+Partition 10 completed: 6,250 transactions
+Partition 09 completed: 6,250 transactions
+Partition 13 completed: 6,250 transactions
+Partition 15 completed: 6,250 transactions
+Partition 12 completed: 6,250 transactions
+Partition 16 completed: 6,250 transactions
+Partition 17 completed: 6,250 transactions
+Partition 18 completed: 6,250 transactions
+Partition 19 completed: 6,250 transactions
+Partition 20 completed: 6,250 transactions
+Partition 22 completed: 6,250 transactions
+Partition 23 completed: 6,250 transactions
+Partition 24 completed: 6,250 transactions
+Partition 21 completed: 6,250 transactions
+Partition 27 completed: 6,250 transactions
+Partition 25 completed: 6,250 transactions
+Partition 26 completed: 6,250 transactions
+Partition 28 completed: 6,250 transactions
+Partition 29 completed: 6,250 transactions
+Partition 31 completed: 6,250 transactions
+Partition 30 completed: 6,250 transactions
+
+====================== RESULT ==============================
+Rule DB seed          : 3,499 ms
+Transaction DB seed   : 2,796 ms
+Generic base build    : 3,448 ms
+Rule facts loaded     : 200,000 in 4,358 ms
+Max partition load    : 501 ms
+Heap after rules GC   : 103.3 MB
+DB batch wall time    : 3.364 s
+End-to-end throughput : 59,454.26 tx/s
+Cumulative DB read    : 8.675 s
+Cumulative Drools     : 4.911 s
+Cumulative DB write   : 11.540 s
+Batch p50             : 154.645 ms
+Batch p95             : 777.460 ms
+Batch p99             : 793.130 ms
+Transactions read     : 200,000
+Result rows written   : 200,000
+Matched               : 200,000
+No match              : 0
+Incorrect             : 0
+Heap after run GC     : 135.6 MB
+Database file size    : 108.22 MB
+Monthly runtime path  : 00:00:14.501
+Complete run incl seed: 00:00:23.121
+Projected 2M DB path  : 00:00:33.639
+2-hour target margin  : 214.0x
+============================================================
+Note: cumulative read/engine/write times are summed across parallel workers and can exceed wall time.
+Inspect with scripts\inspect-h2.bat or scripts\open-h2-console.bat.
+CSV appended to: C:\Users\bellamp\Downloads\drools-commission-poc3-h2\benchmark-results-h2.csv
+
+C:\Users\bellamp\Downloads\drools-commission-poc3-h2>scripts\inspect-h2.bat
+============================================================
+ Drools Commission POC #3 - FILE H2 END-TO-END
+============================================================
+Mode                : INSPECT
+Commission rules    : 200,000
+Database tx rows    : 200,000
+Input columns       : 24
+Partitions/sessions : 32
+Worker threads      : 8
+Read batch          : 2,000
+Write batch         : 2,000
+Seed batch          : 5,000
+Reset database      : false
+Executable model    : true
+Beta range index    : true
+H2 URL              : jdbc:h2:file:C:/Users/bellamp/Downloads/drools-commission-poc3-h2/data/commission-benchmark;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000
+============================================================
+
+Database URL : jdbc:h2:file:C:/Users/bellamp/Downloads/drools-commission-poc3-h2/data/commission-benchmark;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000
+Rules        : 200,000
+Transactions : 200,000
+Results      : 200,000
+
+--- Sample rules ---
+RULE_ID=0 | PARTITION_ID=5 | CARRIER=CAR37 | PRODUCT=PROD22 | STATE_CODE=ST26 | CHANNEL_CODE=CH02 | PREMIUM_MIN=0.0 | PREMIUM_MAX=49999.99 | COMMISSION_PERCENTAGE=0.5
+RULE_ID=1 | PARTITION_ID=26 | CARRIER=CAR58 | PRODUCT=PROD06 | STATE_CODE=ST02 | CHANNEL_CODE=CH00 | PREMIUM_MIN=150000.0 | PREMIUM_MAX=199999.99 | COMMISSION_PERCENTAGE=0.51
+RULE_ID=2 | PARTITION_ID=15 | CARRIER=CAR15 | PRODUCT=PROD55 | STATE_CODE=ST09 | CHANNEL_CODE=CH05 | PREMIUM_MIN=250000.0 | PREMIUM_MAX=299999.99 | COMMISSION_PERCENTAGE=0.52
+RULE_ID=3 | PARTITION_ID=4 | CARRIER=CAR36 | PRODUCT=PROD39 | STATE_CODE=ST17 | CHANNEL_CODE=CH02 | PREMIUM_MIN=400000.0 | PREMIUM_MAX=449999.99 | COMMISSION_PERCENTAGE=0.53
+RULE_ID=4 | PARTITION_ID=25 | CARRIER=CAR57 | PRODUCT=PROD23 | STATE_CODE=ST25 | CHANNEL_CODE=CH07 | PREMIUM_MIN=550000.0 | PREMIUM_MAX=599999.99 | COMMISSION_PERCENTAGE=0.54
+RULE_ID=5 | PARTITION_ID=14 | CARRIER=CAR14 | PRODUCT=PROD08 | STATE_CODE=ST01 | CHANNEL_CODE=CH05 | PREMIUM_MIN=650000.0 | PREMIUM_MAX=699999.99 | COMMISSION_PERCENTAGE=0.55
+RULE_ID=6 | PARTITION_ID=3 | CARRIER=CAR35 | PRODUCT=PROD56 | STATE_CODE=ST08 | CHANNEL_CODE=CH02 | PREMIUM_MIN=200000.0 | PREMIUM_MAX=249999.99 | COMMISSION_PERCENTAGE=0.56
+RULE_ID=7 | PARTITION_ID=24 | CARRIER=CAR56 | PRODUCT=PROD40 | STATE_CODE=ST16 | CHANNEL_CODE=CH07 | PREMIUM_MIN=350000.0 | PREMIUM_MAX=399999.99 | COMMISSION_PERCENTAGE=0.5700000000000001
+RULE_ID=8 | PARTITION_ID=13 | CARRIER=CAR13 | PRODUCT=PROD25 | STATE_CODE=ST24 | CHANNEL_CODE=CH04 | PREMIUM_MIN=450000.0 | PREMIUM_MAX=499999.99 | COMMISSION_PERCENTAGE=0.58
+RULE_ID=9 | PARTITION_ID=2 | CARRIER=CAR34 | PRODUCT=PROD09 | STATE_CODE=ST00 | CHANNEL_CODE=CH02 | PREMIUM_MIN=600000.0 | PREMIUM_MAX=649999.99 | COMMISSION_PERCENTAGE=0.59
+
+--- Sample transactions ---
+TRANSACTION_ID=1 | PARTITION_ID=0 | EXPECTED_RULE_ID=44751 | CARRIER=CAR32 | PRODUCT=PROD02 | STATE_CODE=ST04 | PREMIUM=824999.995
+TRANSACTION_ID=2 | PARTITION_ID=0 | EXPECTED_RULE_ID=66959 | CARRIER=CAR32 | PRODUCT=PROD57 | STATE_CODE=ST05 | PREMIUM=424999.995
+TRANSACTION_ID=3 | PARTITION_ID=0 | EXPECTED_RULE_ID=65839 | CARRIER=CAR00 | PRODUCT=PROD10 | STATE_CODE=ST24 | PREMIUM=624999.995
+TRANSACTION_ID=4 | PARTITION_ID=0 | EXPECTED_RULE_ID=32655 | CARRIER=CAR32 | PRODUCT=PROD01 | STATE_CODE=ST22 | PREMIUM=824999.995
+TRANSACTION_ID=5 | PARTITION_ID=0 | EXPECTED_RULE_ID=103791 | CARRIER=CAR00 | PRODUCT=PROD47 | STATE_CODE=ST10 | PREMIUM=624999.995
+TRANSACTION_ID=6 | PARTITION_ID=0 | EXPECTED_RULE_ID=8719 | CARRIER=CAR32 | PRODUCT=PROD19 | STATE_CODE=ST27 | PREMIUM=624999.995
+TRANSACTION_ID=7 | PARTITION_ID=0 | EXPECTED_RULE_ID=55631 | CARRIER=CAR32 | PRODUCT=PROD52 | STATE_CODE=ST27 | PREMIUM=624999.995
+TRANSACTION_ID=8 | PARTITION_ID=0 | EXPECTED_RULE_ID=199951 | CARRIER=CAR32 | PRODUCT=PROD47 | STATE_CODE=ST15 | PREMIUM=224999.995
+TRANSACTION_ID=9 | PARTITION_ID=0 | EXPECTED_RULE_ID=196207 | CARRIER=CAR00 | PRODUCT=PROD35 | STATE_CODE=ST04 | PREMIUM=424999.995
+TRANSACTION_ID=10 | PARTITION_ID=0 | EXPECTED_RULE_ID=76495 | CARRIER=CAR32 | PRODUCT=PROD50 | STATE_CODE=ST06 | PREMIUM=24999.995
+
+--- Sample results ---
+TRANSACTION_ID=1 | EXPECTED_RULE_ID=44751 | MATCHED_RULE_ID=44751 | COMMISSION_PERCENTAGE=13.01 | RESULT_STATUS=MATCHED
+TRANSACTION_ID=2 | EXPECTED_RULE_ID=66959 | MATCHED_RULE_ID=66959 | COMMISSION_PERCENTAGE=10.09 | RESULT_STATUS=MATCHED
+TRANSACTION_ID=3 | EXPECTED_RULE_ID=65839 | MATCHED_RULE_ID=65839 | COMMISSION_PERCENTAGE=13.89 | RESULT_STATUS=MATCHED
+TRANSACTION_ID=4 | EXPECTED_RULE_ID=32655 | MATCHED_RULE_ID=32655 | COMMISSION_PERCENTAGE=12.05 | RESULT_STATUS=MATCHED
+TRANSACTION_ID=5 | EXPECTED_RULE_ID=103791 | MATCHED_RULE_ID=103791 | COMMISSION_PERCENTAGE=3.41 | RESULT_STATUS=MATCHED
+TRANSACTION_ID=6 | EXPECTED_RULE_ID=8719 | MATCHED_RULE_ID=8719 | COMMISSION_PERCENTAGE=12.69 | RESULT_STATUS=MATCHED
+TRANSACTION_ID=7 | EXPECTED_RULE_ID=55631 | MATCHED_RULE_ID=55631 | COMMISSION_PERCENTAGE=1.81 | RESULT_STATUS=MATCHED
+TRANSACTION_ID=8 | EXPECTED_RULE_ID=199951 | MATCHED_RULE_ID=199951 | COMMISSION_PERCENTAGE=5.01 | RESULT_STATUS=MATCHED
+TRANSACTION_ID=9 | EXPECTED_RULE_ID=196207 | MATCHED_RULE_ID=196207 | COMMISSION_PERCENTAGE=12.57 | RESULT_STATUS=MATCHED
+TRANSACTION_ID=10 | EXPECTED_RULE_ID=76495 | MATCHED_RULE_ID=76495 | COMMISSION_PERCENTAGE=15.45 | RESULT_STATUS=MATCHED
+
+Database file: C:\Users\bellamp\Downloads\drools-commission-poc3-h2\data\commission-benchmark.mv.db (108.22 MB)
+
+C:\Users\bellamp\Downloads\drools-commission-poc3-h2>
