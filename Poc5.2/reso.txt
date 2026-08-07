@@ -1,0 +1,7 @@
+        at com.example.rfp.RfpShowcaseApplication.main(RfpShowcaseApplication.java:14) ~[classes/:na]
+Caused by: org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException: Unique index or primary key violation: "PUBLIC.CONSTRAINT_INDEX_9 ON PUBLIC.ATTRIBUTE_DEFINITION(CODE NULLS FIRST) VALUES ( /* 14 */ 'CUSTOMER_SEGMENT' )"; SQL statement:
+insert into attribute_definition(id,code,display_name,data_type,source_key,allowed_operators,active) values(?,?,?,?,?,?,true) [23505-232]
+        at org.h2.message.DbException.getJdbcSQLException(DbException.java:520) ~[h2-2.3.232.jar:2.3.232]
+        at org.h2.message.DbException.getJdbcSQLException(DbException.java:489) ~[h2-2.3.232.jar:2.3.232]
+        at org.h2.message.DbException.get(DbException.java:223) ~[h2-2.3.232.jar:2.3.232]
+        at org.h2.message.DbException.get(DbException.java:199) ~[h2-2.3.232.jar:2.3.232]
