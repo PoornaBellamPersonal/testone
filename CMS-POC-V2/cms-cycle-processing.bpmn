@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+                  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+                  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+                  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+                  xmlns:camunda="http://camunda.org/schema/1.0/bpmn"
+                  id="Definitions_CmsCycle"
+                  targetNamespace="http://example.com/cms">
+
+  <bpmn:message id="Msg_CommissionCompleted" name="COMMISSION_STAGE_COMPLETED"/>
+  <bpmn:message id="Msg_CommissionFailed" name="COMMISSION_STAGE_FAILED"/>
+  <bpmn:message id="Msg_TaxCompleted" name="TAX_STAGE_COMPLETED"/>
+  <bpmn:message id="Msg_TaxFailed" name="TAX_STAGE_FAILED"/>
+  <bpmn:message id="Msg_LimitCompleted" name="AGGREGATE_LIMIT_STAGE_COMPLETED"/>
+  <bpmn:message id="Msg_LimitFailed" name="AGGREGATE_LIMIT_STAGE_FAILED"/>
+
+  <bpmn:process id="cmsCycleProcessing" name="CMS Cycle Processing" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_Cycle" name="Cycle Start">
+      <bpmn:outgoing>Flow_Start_Init</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:serviceTask id="Task_Initialize" name="Initialize Cycle Data" camunda:delegateExpression="${initializeCycleDelegate}" camunda:asyncBefore="true">
+      <bpmn:incoming>Flow_Start_Init</bpmn:incoming>
+      <bpmn:outgoing>Flow_Init_Comm</bpmn:outgoing>
+      <bpmn:extensionElements><camunda:failedJobRetryTimeCycle>R3/PT10S</camunda:failedJobRetryTimeCycle></bpmn:extensionElements>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="Task_PrepareCommission" name="Create &amp; Queue Commission Batches" camunda:delegateExpression="${prepareCommissionStageDelegate}" camunda:asyncBefore="true">
+      <bpmn:incoming>Flow_Init_Comm</bpmn:incoming>
+      <bpmn:outgoing>Flow_Comm_Gateway</bpmn:outgoing>
+      <bpmn:extensionElements><camunda:failedJobRetryTimeCycle>R3/PT10S</camunda:failedJobRetryTimeCycle></bpmn:extensionElements>
+    </bpmn:serviceTask>
+
+    <bpmn:eventBasedGateway id="Gateway_WaitCommission" name="Wait for Commission Stage">
+      <bpmn:incoming>Flow_Comm_Gateway</bpmn:incoming>
+      <bpmn:outgoing>Flow_Gw_CommDone</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Gw_CommFail</bpmn:outgoing>
+    </bpmn:eventBasedGateway>
+
+    <bpmn:intermediateCatchEvent id="Catch_CommissionDone" name="Commission Stage Completed">
+      <bpmn:incoming>Flow_Gw_CommDone</bpmn:incoming>
+      <bpmn:outgoing>Flow_CommDone_Tax</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Msg_CommissionCompleted"/>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="Catch_CommissionFail" name="Commission Stage Failed">
+      <bpmn:incoming>Flow_Gw_CommFail</bpmn:incoming>
+      <bpmn:outgoing>Flow_CommFail_Fail</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Msg_CommissionFailed"/>
+    </bpmn:intermediateCatchEvent>
+
+    <bpmn:serviceTask id="Task_PrepareTax" name="Create &amp; Queue Tax Batches" camunda:delegateExpression="${prepareTaxStageDelegate}" camunda:asyncBefore="true">
+      <bpmn:incoming>Flow_CommDone_Tax</bpmn:incoming>
+      <bpmn:outgoing>Flow_Tax_Gateway</bpmn:outgoing>
+      <bpmn:extensionElements><camunda:failedJobRetryTimeCycle>R3/PT10S</camunda:failedJobRetryTimeCycle></bpmn:extensionElements>
+    </bpmn:serviceTask>
+
+    <bpmn:eventBasedGateway id="Gateway_WaitTax" name="Wait for Tax Stage">
+      <bpmn:incoming>Flow_Tax_Gateway</bpmn:incoming>
+      <bpmn:outgoing>Flow_Gw_TaxDone</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Gw_TaxFail</bpmn:outgoing>
+    </bpmn:eventBasedGateway>
+
+    <bpmn:intermediateCatchEvent id="Catch_TaxDone" name="Tax Stage Completed">
+      <bpmn:incoming>Flow_Gw_TaxDone</bpmn:incoming>
+      <bpmn:outgoing>Flow_TaxDone_Limit</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Msg_TaxCompleted"/>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="Catch_TaxFail" name="Tax Stage Failed">
+      <bpmn:incoming>Flow_Gw_TaxFail</bpmn:incoming>
+      <bpmn:outgoing>Flow_TaxFail_Fail</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Msg_TaxFailed"/>
+    </bpmn:intermediateCatchEvent>
+
+    <bpmn:serviceTask id="Task_PrepareLimit" name="Create &amp; Queue Aggregate Limit Batches" camunda:delegateExpression="${prepareAggregateLimitStageDelegate}" camunda:asyncBefore="true">
+      <bpmn:incoming>Flow_TaxDone_Limit</bpmn:incoming>
+      <bpmn:outgoing>Flow_Limit_Gateway</bpmn:outgoing>
+      <bpmn:extensionElements><camunda:failedJobRetryTimeCycle>R3/PT10S</camunda:failedJobRetryTimeCycle></bpmn:extensionElements>
+    </bpmn:serviceTask>
+
+    <bpmn:eventBasedGateway id="Gateway_WaitLimit" name="Wait for Aggregate Limit Stage">
+      <bpmn:incoming>Flow_Limit_Gateway</bpmn:incoming>
+      <bpmn:outgoing>Flow_Gw_LimitDone</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Gw_LimitFail</bpmn:outgoing>
+    </bpmn:eventBasedGateway>
+
+    <bpmn:intermediateCatchEvent id="Catch_LimitDone" name="Aggregate Limit Stage Completed">
+      <bpmn:incoming>Flow_Gw_LimitDone</bpmn:incoming>
+      <bpmn:outgoing>Flow_LimitDone_Complete</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Msg_LimitCompleted"/>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="Catch_LimitFail" name="Aggregate Limit Stage Failed">
+      <bpmn:incoming>Flow_Gw_LimitFail</bpmn:incoming>
+      <bpmn:outgoing>Flow_LimitFail_Fail</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Msg_LimitFailed"/>
+    </bpmn:intermediateCatchEvent>
+
+    <bpmn:serviceTask id="Task_Complete" name="Complete Cycle" camunda:delegateExpression="${completeCycleDelegate}">
+      <bpmn:incoming>Flow_LimitDone_Complete</bpmn:incoming>
+      <bpmn:outgoing>Flow_Complete_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:serviceTask id="Task_Fail" name="Mark Cycle Failed" camunda:delegateExpression="${failCycleDelegate}">
+      <bpmn:incoming>Flow_CommFail_Fail</bpmn:incoming>
+      <bpmn:incoming>Flow_TaxFail_Fail</bpmn:incoming>
+      <bpmn:incoming>Flow_LimitFail_Fail</bpmn:incoming>
+      <bpmn:outgoing>Flow_Fail_End</bpmn:outgoing>
+    </bpmn:serviceTask>
+
+    <bpmn:endEvent id="EndEvent_Completed" name="Cycle Completed">
+      <bpmn:incoming>Flow_Complete_End</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="EndEvent_Failed" name="Cycle Failed">
+      <bpmn:incoming>Flow_Fail_End</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="Flow_Start_Init" sourceRef="StartEvent_Cycle" targetRef="Task_Initialize"/>
+    <bpmn:sequenceFlow id="Flow_Init_Comm" sourceRef="Task_Initialize" targetRef="Task_PrepareCommission"/>
+    <bpmn:sequenceFlow id="Flow_Comm_Gateway" sourceRef="Task_PrepareCommission" targetRef="Gateway_WaitCommission"/>
+    <bpmn:sequenceFlow id="Flow_Gw_CommDone" sourceRef="Gateway_WaitCommission" targetRef="Catch_CommissionDone"/>
+    <bpmn:sequenceFlow id="Flow_Gw_CommFail" sourceRef="Gateway_WaitCommission" targetRef="Catch_CommissionFail"/>
+    <bpmn:sequenceFlow id="Flow_CommDone_Tax" sourceRef="Catch_CommissionDone" targetRef="Task_PrepareTax"/>
+    <bpmn:sequenceFlow id="Flow_Tax_Gateway" sourceRef="Task_PrepareTax" targetRef="Gateway_WaitTax"/>
+    <bpmn:sequenceFlow id="Flow_Gw_TaxDone" sourceRef="Gateway_WaitTax" targetRef="Catch_TaxDone"/>
+    <bpmn:sequenceFlow id="Flow_Gw_TaxFail" sourceRef="Gateway_WaitTax" targetRef="Catch_TaxFail"/>
+    <bpmn:sequenceFlow id="Flow_TaxDone_Limit" sourceRef="Catch_TaxDone" targetRef="Task_PrepareLimit"/>
+    <bpmn:sequenceFlow id="Flow_Limit_Gateway" sourceRef="Task_PrepareLimit" targetRef="Gateway_WaitLimit"/>
+    <bpmn:sequenceFlow id="Flow_Gw_LimitDone" sourceRef="Gateway_WaitLimit" targetRef="Catch_LimitDone"/>
+    <bpmn:sequenceFlow id="Flow_Gw_LimitFail" sourceRef="Gateway_WaitLimit" targetRef="Catch_LimitFail"/>
+    <bpmn:sequenceFlow id="Flow_LimitDone_Complete" sourceRef="Catch_LimitDone" targetRef="Task_Complete"/>
+    <bpmn:sequenceFlow id="Flow_CommFail_Fail" sourceRef="Catch_CommissionFail" targetRef="Task_Fail"/>
+    <bpmn:sequenceFlow id="Flow_TaxFail_Fail" sourceRef="Catch_TaxFail" targetRef="Task_Fail"/>
+    <bpmn:sequenceFlow id="Flow_LimitFail_Fail" sourceRef="Catch_LimitFail" targetRef="Task_Fail"/>
+    <bpmn:sequenceFlow id="Flow_Complete_End" sourceRef="Task_Complete" targetRef="EndEvent_Completed"/>
+    <bpmn:sequenceFlow id="Flow_Fail_End" sourceRef="Task_Fail" targetRef="EndEvent_Failed"/>
+  </bpmn:process>
+
+  <bpmndi:BPMNDiagram id="BPMNDiagram_CmsCycle">
+    <bpmndi:BPMNPlane id="BPMNPlane_CmsCycle" bpmnElement="cmsCycleProcessing">
+      <bpmndi:BPMNShape id="Shape_Start" bpmnElement="StartEvent_Cycle"><dc:Bounds x="100" y="160" width="36" height="36"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Init" bpmnElement="Task_Initialize"><dc:Bounds x="180" y="138" width="130" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Comm" bpmnElement="Task_PrepareCommission"><dc:Bounds x="350" y="138" width="170" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_GwC" bpmnElement="Gateway_WaitCommission"><dc:Bounds x="565" y="153" width="50" height="50"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_CommDone" bpmnElement="Catch_CommissionDone"><dc:Bounds x="660" y="95" width="36" height="36"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_CommFail" bpmnElement="Catch_CommissionFail"><dc:Bounds x="660" y="225" width="36" height="36"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Tax" bpmnElement="Task_PrepareTax"><dc:Bounds x="750" y="73" width="160" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_GwT" bpmnElement="Gateway_WaitTax"><dc:Bounds x="955" y="88" width="50" height="50"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_TaxDone" bpmnElement="Catch_TaxDone"><dc:Bounds x="1050" y="55" width="36" height="36"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_TaxFail" bpmnElement="Catch_TaxFail"><dc:Bounds x="1050" y="185" width="36" height="36"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Limit" bpmnElement="Task_PrepareLimit"><dc:Bounds x="1140" y="33" width="190" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_GwL" bpmnElement="Gateway_WaitLimit"><dc:Bounds x="1375" y="48" width="50" height="50"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_LimitDone" bpmnElement="Catch_LimitDone"><dc:Bounds x="1470" y="30" width="36" height="36"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_LimitFail" bpmnElement="Catch_LimitFail"><dc:Bounds x="1470" y="160" width="36" height="36"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Complete" bpmnElement="Task_Complete"><dc:Bounds x="1560" y="8" width="120" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_End" bpmnElement="EndEvent_Completed"><dc:Bounds x="1730" y="30" width="36" height="36"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_Fail" bpmnElement="Task_Fail"><dc:Bounds x="1150" y="250" width="140" height="80"/></bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Shape_EndFail" bpmnElement="EndEvent_Failed"><dc:Bounds x="1340" y="272" width="36" height="36"/></bpmndi:BPMNShape>
+
+      <bpmndi:BPMNEdge id="Edge1" bpmnElement="Flow_Start_Init"><di:waypoint x="136" y="178"/><di:waypoint x="180" y="178"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge2" bpmnElement="Flow_Init_Comm"><di:waypoint x="310" y="178"/><di:waypoint x="350" y="178"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge3" bpmnElement="Flow_Comm_Gateway"><di:waypoint x="520" y="178"/><di:waypoint x="565" y="178"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge4" bpmnElement="Flow_Gw_CommDone"><di:waypoint x="590" y="153"/><di:waypoint x="590" y="113"/><di:waypoint x="660" y="113"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge5" bpmnElement="Flow_Gw_CommFail"><di:waypoint x="590" y="203"/><di:waypoint x="590" y="243"/><di:waypoint x="660" y="243"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge6" bpmnElement="Flow_CommDone_Tax"><di:waypoint x="696" y="113"/><di:waypoint x="750" y="113"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge7" bpmnElement="Flow_Tax_Gateway"><di:waypoint x="910" y="113"/><di:waypoint x="955" y="113"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge8" bpmnElement="Flow_Gw_TaxDone"><di:waypoint x="980" y="88"/><di:waypoint x="980" y="73"/><di:waypoint x="1050" y="73"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge9" bpmnElement="Flow_Gw_TaxFail"><di:waypoint x="980" y="138"/><di:waypoint x="980" y="203"/><di:waypoint x="1050" y="203"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge10" bpmnElement="Flow_TaxDone_Limit"><di:waypoint x="1086" y="73"/><di:waypoint x="1140" y="73"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge11" bpmnElement="Flow_Limit_Gateway"><di:waypoint x="1330" y="73"/><di:waypoint x="1375" y="73"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge12" bpmnElement="Flow_Gw_LimitDone"><di:waypoint x="1425" y="73"/><di:waypoint x="1450" y="73"/><di:waypoint x="1450" y="48"/><di:waypoint x="1470" y="48"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge13" bpmnElement="Flow_Gw_LimitFail"><di:waypoint x="1400" y="98"/><di:waypoint x="1400" y="178"/><di:waypoint x="1470" y="178"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge14" bpmnElement="Flow_LimitDone_Complete"><di:waypoint x="1506" y="48"/><di:waypoint x="1560" y="48"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge15" bpmnElement="Flow_Complete_End"><di:waypoint x="1680" y="48"/><di:waypoint x="1730" y="48"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge16" bpmnElement="Flow_CommFail_Fail"><di:waypoint x="678" y="261"/><di:waypoint x="678" y="290"/><di:waypoint x="1150" y="290"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge17" bpmnElement="Flow_TaxFail_Fail"><di:waypoint x="1068" y="221"/><di:waypoint x="1068" y="290"/><di:waypoint x="1150" y="290"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge18" bpmnElement="Flow_LimitFail_Fail"><di:waypoint x="1488" y="196"/><di:waypoint x="1488" y="290"/><di:waypoint x="1290" y="290"/></bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Edge19" bpmnElement="Flow_Fail_End"><di:waypoint x="1290" y="290"/><di:waypoint x="1340" y="290"/></bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
